@@ -10,13 +10,18 @@ import pages.ElementsPage;
 import pages.HomePage;
 import pages.CheckBoxPage;
 
+//        Step 1: Click pe Elements de pe pagina principala
+//        Step 2: Click pe Check Box din lista
+//        Step 3: Expand Home prin click pe sageata
+//        Step 4: Click pe checkbox-ul aferent "Desktop"
+//        Step 5: Sa se salveze textul generat de checkbox-ul selectat intr-o variabila, apoi afisata in consola
+
+
 public class Scenario2 extends BaseTests {
     private WebDriver driver;
 
-
     @BeforeEach
     public void initDriver() {
-
         driver = setUp();
     }
     @Test
@@ -29,12 +34,12 @@ public class Scenario2 extends BaseTests {
         homePage.clickElements();
 
         //STEP 2) Creating object of Elements page
-        ElementsPage elements = new ElementsPage(driver);
+        ElementsPage elementsPage = new ElementsPage(driver);
 
         //STEP 3) Find "Check Box" button on the ElementsPage and click on it
         //Creating object of CheckBox page
         CheckBoxPage checkBoxPage = new CheckBoxPage(driver);
-        elements.clickCheckBoxBtn();
+        elementsPage.clickCheckBoxBtn();
 
         //STEP 4) Find the "Expand Home" button arrow and click on it
         checkBoxPage.clickExpandHomeBtn();
@@ -53,7 +58,6 @@ public class Scenario2 extends BaseTests {
         String actualText = checkBoxPage.viewPrintedText();
 
         Assertions.assertEquals(expectedText, actualText);
-
     }
     @AfterEach
     public void quitWebDriver() {

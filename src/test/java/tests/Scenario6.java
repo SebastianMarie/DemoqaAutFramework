@@ -1,12 +1,18 @@
 package tests;
 
 import base.BaseTests;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import pages.DatePickerPage;
 import pages.HomePage;
 import pages.WidgetsPage;
+
+//         Step 1: Click pe Widgets de pe pagina principala
+//         Step 2: Click pe "Date Picker" din lista
+//         Step 3: Sa se adauge o data in fiecare dintre input fields, cu 30 de zile in viitor fata de data executiei
 
 public class Scenario6 extends BaseTests {
     private WebDriver driver;
@@ -15,7 +21,6 @@ public class Scenario6 extends BaseTests {
 
     @BeforeEach
     public void initDriver() {
-
         driver = setUp();
     }
     @Test
@@ -37,21 +42,28 @@ public class Scenario6 extends BaseTests {
         DatePickerPage datePickerPage = new DatePickerPage(driver);
 
         //STEP 5) Edit the "DatePickerMonthYearInput"
-        datePickerPage.editDatePickerMonthYearInput();
+        String dueDate = datePickerPage.getDueDate(30);
+        datePickerPage.setDueDate(dueDate);
 
-        //STEP 6)
-        //Click on the "Select Date" button
-        datePickerPage.clickSelectDateBtn();
+        //STEP 5a) Verify if the actual DatePickerMonthYearInput is the same as the expected DatePickerMonthYearInput
 
-        //STEP 7)
-        //Edit the "DateAndTimePickerInput"
-        datePickerPage.editDateAndTimePickerInput();
+        String actualDueDate = datePickerPage.viewDatePickerMonthYearInput();
+        Assertions.assertEquals(dueDate, actualDueDate);
 
-        //STEP 8)
-        //Click on the "Select Date" button
-        datePickerPage.clickSelectDateBtn();
+        datePickerPage.clickSelectDateText();
 
+        //STEP 7a) Verify if the actual DateAndTimePickerInput is the same as the expected DateAndTimePickerInput
+        String dueDate2 = datePickerPage.getDueDate2(30);
+        datePickerPage.setDueDate2(dueDate2);
 
+        String actualDueDate2 = datePickerPage.viewDateAndTimePickerInput();
+        Assertions.assertEquals(dueDate2, actualDueDate2);
 
+        datePickerPage.clickDateAndTimeText();
+
+    }
+    @AfterEach
+    public void quitWebDriver() {
+        driver.quit();
     }
 }

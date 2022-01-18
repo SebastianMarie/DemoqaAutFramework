@@ -10,16 +10,18 @@ import pages.ElementsPage;
 import pages.HomePage;
 import pages.TextBoxPage;
 
-public class Scenario1 extends BaseTests {
+//        Step 1: Click pe Elements de pe pagina principala
+//        Step 2: Click pe Text Box din lista
+//        Step 3: Sa se completeze formularul
+//        Step 4: Click pe Submit
 
+public class Scenario1 extends BaseTests {
     private WebDriver driver;
 
     @BeforeEach
     public void initDriver() {
-
         driver = setUp();
     }
-
     @Test
     public void scenario1() {
         //STEP 0) Load the Home Page
@@ -58,7 +60,6 @@ public class Scenario1 extends BaseTests {
         String actualText = text.viewTextArea();
 
         Assertions.assertEquals(expectedText, actualText);
-
     }
     @AfterEach
     public void quitWebDriver() {

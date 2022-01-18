@@ -3,7 +3,6 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,64 +18,55 @@ public class DatePickerPage {
         this.driver = driver;
     }
     //Locator for "datePickerMonthYearInput" input box
-    By datePickerMonthYearInput = By.cssSelector("#datePickerMonthYearInput");
+    By datePickerMonthYearInput = By.id("datePickerMonthYearInput");
 
     //Locator for "dateAndTimePickerInput" input box
-    By dateAndTimePickerInput = By.cssSelector("#dateAndTimePickerInput");
+    By dateAndTimePickerInput = By.id("dateAndTimePickerInput");
 
     //Locator for "Select Date" button
-    By selectDateBtn = By.cssSelector(".col-md-3.col-sm-12:nth-child(1)");
+    By selectDateText = By.xpath("//div[contains(text(), 'Select Date')]");
 
-    //Method to edit the "datePickerMonthYearInput" input box
-    public void editDatePickerMonthYearInput() {
-        driver.findElement(datePickerMonthYearInput).click();
-        //Change the date by 30 days forward in the "DatePickerMonthYearInput"
-        // get current date here
-        WebElement dropDownSelectDate = driver.findElement(datePickerMonthYearInput);
-        dropDownSelectDate.click();
-        Date date = new Date();
-        SimpleDateFormat df  = new SimpleDateFormat("MM/dd/YYYY");
+    //  Method to click on the "Select Date" button
+    public void clickSelectDateText() {
+        driver.findElement(selectDateText).click();
+    }
+    //Locator for "Date And Time" button
+    By dateAndTimeBtn = By.xpath("//div[contains(text(), 'Date And Time')]");
+
+    //  Method to click on the "Date And Time" button
+    public void clickDateAndTimeText() {
+        driver.findElement(dateAndTimeBtn).click();
+    }
+    public String getDueDate(int numberOfDays) {
         Calendar c1 = Calendar.getInstance();
-        String currentDate = df.format(date);
-
-        // now add 30 day in Calendar instance
-        c1.add(Calendar.DAY_OF_YEAR, 30);
-        df = new SimpleDateFormat("MM/dd/YYYY");
+        c1.add(Calendar.DAY_OF_YEAR, numberOfDays);
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/YYYY");
         Date resultDate = c1.getTime();
-        String     dueDate = df.format(resultDate);
+        return df.format(resultDate);
+    }
+    public void setDueDate(String dueDate) {
         driver.findElement(datePickerMonthYearInput).sendKeys(Keys.CONTROL, "A");
         driver.findElement(datePickerMonthYearInput).sendKeys(Keys.BACK_SPACE);
         driver.findElement(datePickerMonthYearInput).sendKeys(dueDate);
-
+    }
+    //Method to view the text "datePickerMonthYearInput"
+    public String viewDatePickerMonthYearInput() {
+        return driver.findElement(datePickerMonthYearInput).getAttribute("value");
 
     }
-    //Method to edit the "dateAndTimePickerInput" input box
-    public void editDateAndTimePickerInput() {
-        driver.findElement(dateAndTimePickerInput).click();
-        //Change the date by 30 days forward in the "DateAndTimePickerInput"
-        // get current date here
-        WebElement dropDownSelectDate = driver.findElement(dateAndTimePickerInput);
-        dropDownSelectDate.click();
-        Date date = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/YYYY");
+    public String getDueDate2(int numberOfDays) {
         Calendar c1 = Calendar.getInstance();
-        String currentDate = df.format(date);
-
-        // now add 30 day in Calendar instance
-        c1.add(Calendar.DAY_OF_YEAR, 30);
-        df = new SimpleDateFormat("MM/dd/YYYY");
+        c1.add(Calendar.DAY_OF_YEAR, numberOfDays);
+        SimpleDateFormat df = new SimpleDateFormat("MMMMMMM/DD/YYYY/hh:mm aaa");
         Date resultDate = c1.getTime();
-        String dueDate = df.format(resultDate);
+        return df.format(resultDate);
+    }
+    public void setDueDate2(String dueDate2) {
         driver.findElement(dateAndTimePickerInput).sendKeys(Keys.CONTROL, "A");
         driver.findElement(dateAndTimePickerInput).sendKeys(Keys.BACK_SPACE);
-        driver.findElement(dateAndTimePickerInput).sendKeys(dueDate);
-
+        driver.findElement(dateAndTimePickerInput).sendKeys(dueDate2);
     }
-    //Method to click on "Select Date" button
-    public void clickSelectDateBtn() {
-        driver.findElement(selectDateBtn).click();
+    public String viewDateAndTimePickerInput() {
+        return driver.findElement(dateAndTimePickerInput).getAttribute("value");
     }
-
-
 }
-

@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class UploadAndDownloadPage {
@@ -16,11 +15,19 @@ public class UploadAndDownloadPage {
     //Locator for "uploadFile" button
     By chooseFileBtn = By.id("uploadFile");
 
+    //Locator for "uploadFile" message
+    By uploadFileText = By.cssSelector(".mt-3");
+
+    //Method to upload file
     public void uploadFile(String pathToFile) {
 
         driver.findElement(chooseFileBtn).sendKeys(pathToFile);
     }
+    //Method to find the text message after the upload file
+    public String actualMessageText() {
+        return driver.findElement(uploadFileText).getText();
 
+    }
 
 
 }

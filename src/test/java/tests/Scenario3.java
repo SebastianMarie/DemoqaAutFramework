@@ -10,12 +10,19 @@ import pages.ElementsPage;
 import pages.HomePage;
 import pages.WebTablesPage;
 
+//          Step 1: Click pe Elements de pe pagina principala
+//          Step 2: Click pe Web Tables din lista
+//          Step 3: Editeaza al 2-lea rand cu urmatoarele valori: First Name: Ion, Last Name: Pop, Age: 40, Email: test@automation.com, Salary: 15000, Department: Legal
+//          Step 4: Sa se stearga al 3-lea rand din tabel
+//          Step 5: Adauga o noua linie in tabel cu orice valori
+
 public class Scenario3 extends BaseTests {
 
     private WebDriver driver;
 
     @BeforeEach
     public void initDriver() {
+
         driver = setUp();
     }
     @Test
@@ -55,17 +62,17 @@ public class Scenario3 extends BaseTests {
         webTablesPage.clickDeleteThirdRowBtn();
 
         //STEP 6a) Verify if the expected 3rd row is deleted
-        String expectedThirdRow = " " + " " + " " + " " + " " + " " + " ";
+        String expectedThirdRow = "Ion\n" + "Pop\n" + "40\n" + "test@automation.com\n" + "15000\n" + "Legal";
         String actualThirdRow = webTablesPage.viewThirdRowInput();
-        Assertions.assertEquals(expectedThirdRow, actualThirdRow);
+        Assertions.assertFalse(actualThirdRow.contains(expectedThirdRow));
 
         //STEP 7) Fill up the 3rd row with data
         webTablesPage.addNewRecordRow();
 
         //STEP 7a) Verify if the actual data is the same as the expected data to fill in the form.
-        String expectedThirdRowEdit = "Ion\n" + "Pop\n" + "40\n" + "test@automation.com\n" + "15000\n" + "Legal";
-        String actualThirdRowEdit = webTablesPage.viewThirdRowInput();
-        Assertions.assertEquals(expectedThirdRowEdit, actualThirdRowEdit);
+        expectedThirdRow = "Ion\n" + "Pop\n" + "40\n" + "test@automation.com\n" + "15000\n" + "Legal";
+        actualThirdRow = webTablesPage.viewThirdRowInput();
+        Assertions.assertTrue(actualThirdRow.contains(expectedThirdRow));
     }
     @AfterEach
     public void quitWebDriver() {

@@ -19,11 +19,12 @@ public class FramesPage {
     By iFrame = By.id("sampleHeading");
 
     //Method to switch to the iFrame and save the text from the iFrame into a string and print it out
-    public void iFrame() {
+    public String switchToIframe() {
         driver.switchTo().frame(driver.findElement(framesBtn));
         String str = driver.findElement(iFrame).getText();
         System.out.println(str);
 
+        return str;
     }
 }
 
